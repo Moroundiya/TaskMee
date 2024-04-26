@@ -11,3 +11,16 @@ div#root {
   font-family: 'Acme', 'sans-serif';
   font-weight: 100;
 }
+
+.high {
+  border-color: red;
+}
+
+.low {
+  border-color: gray;
+}
+
+.medium {
+  --tw-bg-opacity: 1;
+  border-color: rgb(234 179 2 / var(--tw-bg-opacity));
+}
