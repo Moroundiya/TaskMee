@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
 
-export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority }) => {
+export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority, test, allTask, deletetask, idValue }) => {
 
 
     const [complete, setComplete] = useState();
     const [newcomplete, setnewcomplete] = useState();
+    // const [pushTask, setPushtask] = useState([]);
 
     useEffect(() => {
         setnewcomplete(complete)
+        // setPushtask(allTask)
     }, [complete])
 
     const taskComplete = event => {
@@ -20,9 +22,7 @@ export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority
         }
     }
 
-    const editTask = () => {
-        alert('Hi')
-    }
+
 
 
 
@@ -40,9 +40,10 @@ export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority
             <div className='w-[18%] sm:w-[15%]'>
                 <p className={newcomplete ? 'text-white bg-green-500 px-2 py-1 rounded-md text-[12.8px] text-center' : 'text-white bg-yellow-500 px-2 py-1 rounded-md text-[12.8px] text-center'}>{newcomplete ? 'Completed' : 'Pending'}</p>
             </div>
+            <p>{test}</p>
             <div className={newcomplete ? 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%] text-gray-600 pointer-events-none' : 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%]'}>
-                <Icon icon="bx:edit" className='cursor-pointer' onClick={editTask} />
-                <Icon icon="ion:trash" className='cursor-pointer' onClick={editTask} />
+                <Icon icon="bx:edit" className='cursor-pointer' />
+                <Icon icon="ion:trash" className='cursor-pointer' onClick={() => deletetask(idValue)} />
             </div>
         </div>
     )

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Icon } from '@iconify/react';
 import { AddTask } from './components/AddTask';
+import { v4 as uuidv4 } from 'uuid';
+uuidv4();
 
 function App() {
 
@@ -17,11 +19,12 @@ function App() {
   const [priority, setPriority] = useState();
   const [initialtime, setinitialtime] = useState();
   const [deadlinetime, setdeadlinetime] = useState();
-
+  const [allTask, setAlltask] = useState([])
   useEffect(() => {
     setNewValue(value)
+    setAlltask(task)
     // console.log(priority)
-    console.log(task)
+    // console.log(task)
     // console.log(getDate)
   }, [value, priority, task, getDate, initialtime, deadlinetime])
 
@@ -33,6 +36,7 @@ function App() {
     setTask(task => [
       ...task,
       {
+        id: uuidv4(),
         taskName: newValue,
         urgency: priority,
         taskDate: getDate,
@@ -40,16 +44,20 @@ function App() {
         durationTo: deadlinetime
       },
     ]);
+    // console.log('task is ' + newValue)
     setshowModal('hidden');
     setValue('');
     setPriority('');
     setgetDate('');
     setinitialtime('');
     setdeadlinetime('')
+    // setAlltask(...task, [task])
+
     // setPriority();
 
-    console.log(value)
-    console.log(priority)
+    // console.log(value)
+    // console.log(priority)
+
 
   }
 
@@ -60,6 +68,19 @@ function App() {
 
   function showArray() {
 
+  }
+
+
+  const deletetask = (val) => {
+
+    const newList = allTask.filter((item) => item.id !== val)
+    setTask(newList)
+    console.log(newList)
+    // console.log(val)
+
+    // const taskIndex = allTask.indexOf(num);
+
+    // const remainingTask = allTask.splice(index, 1);
   }
 
 
@@ -120,7 +141,7 @@ function App() {
 
 
         <div className='mt-10 border-[#5957575f] border-t overflow-y-auto h-[550px] w-full'>
-          {task.map((task) => <AddTask newValue={task.taskName} getDate={task.taskDate} initialtime={task.durationFrom} deadlinetime={task.durationTo} key={task.newValue} priority={task.urgency} />)}
+          {task.map((task, index) => <AddTask newValue={task.taskName} getDate={task.taskDate} initialtime={task.durationFrom} deadlinetime={task.durationTo} key={index} test={index} priority={task.urgency} allTask={allTask} deletetask={deletetask} idValue={task.id} />)}
         </div>
 
         <footer className='text-center pt-5'>
