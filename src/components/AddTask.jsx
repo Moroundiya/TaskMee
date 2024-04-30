@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
 
-export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority, test, allTask, deletetask, idValue, setshowEdit }) => {
+export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, test, allTask, deletetask, idValue, setshowEdit }) => {
 
 
     const [complete, setComplete] = useState();
@@ -32,7 +32,7 @@ export const AddTask = ({ newValue, getDate, initialtime, deadlinetime, priority
                 <div className='ml-4 sm:ml-6'>
                     <h1 className={newcomplete ? 'text-xl line-through' : 'text-xl'}>{newValue}</h1>
                     <p className={newcomplete ? 'text-[12px] leading-tight line-through' : 'text-[12px] leading-tight'}>{getDate}</p>
-                    <p className={newcomplete ? 'text-[11px] leading-tight line-through' : 'text-[11px] leading-tight'}>{initialtime} - {deadlinetime}</p>
+                    <p className={newcomplete ? 'text-[11px] leading-tight line-through' : 'text-[11px] leading-tight'}>Duration: &nbsp;{durationHr} - {durationMin}</p>
                 </div>
             </div>
             <div className='w-[18%] sm:w-[15%]'>

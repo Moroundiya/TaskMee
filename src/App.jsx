@@ -8,6 +8,16 @@ function App() {
 
   const newDate = new Date();
 
+  const dateYear = newDate.getFullYear()
+  const dateMonth = newDate.getMonth() + 1
+  const dateDay = newDate.getDate()
+
+  const currentDate = dateYear + '-' + 0 + dateMonth + '-' + dateDay
+
+  console.log(currentDate)
+
+  // console.log(year)
+
   const taskDate = newDate.toDateString();
   const [task, setTask] = useState([]);
   const [getDate, setgetDate] = useState();
@@ -18,8 +28,8 @@ function App() {
   const [showEdit, setshowEdit] = useState('hidden');
   const [newValue, setNewValue] = useState();
   const [priority, setPriority] = useState();
-  const [initialtime, setinitialtime] = useState();
-  const [deadlinetime, setdeadlinetime] = useState();
+  const [durationHr, setdurationHr] = useState();
+  const [durationMin, setdurationMin] = useState();
   const [allTask, setAlltask] = useState([])
   useEffect(() => {
     setNewValue(value)
@@ -27,12 +37,20 @@ function App() {
     // console.log(priority)
     // console.log(task)
     // console.log(getDate)
-  }, [value, priority, task, getDate, initialtime, deadlinetime])
+  }, [value, priority, task, getDate, durationHr, durationMin])
 
 
   function addTaskModal(e) {
-
     e.preventDefault();
+    const durationHrValue = durationHr.split(':');
+    const durationMinValue = durationMin.split(':');
+    const newHr = durationHrValue[0] - durationMinValue[0]
+    const newMin = durationHrValue[1] - durationMinValue[1]
+    const newHrValue = Math.abs(newHr)
+    const newMinValue = Math.abs(newMin)
+    // console.log(newMinValue)
+
+    // const totalTime = 'Hello'
 
     setTask(task => [
       ...task,
@@ -41,8 +59,8 @@ function App() {
         taskName: newValue,
         urgency: priority,
         taskDate: getDate,
-        durationFrom: initialtime,
-        durationTo: deadlinetime
+        durationHr: newHrValue + 'hrs',
+        durationMin: newMinValue + 'mins'
       },
     ]);
     // console.log('task is ' + newValue)
@@ -50,8 +68,8 @@ function App() {
     setValue('');
     setPriority('');
     setgetDate('');
-    setinitialtime('');
-    setdeadlinetime('')
+    setdurationHr('');
+    setdurationMin('')
     // setAlltask(...task, [task])
 
     // setPriority();
@@ -65,11 +83,6 @@ function App() {
   if (priority == 'high') high = true
   if (priority == 'medium') medium = true
   if (priority == 'low') low = true
-
-
-  function showArray() {
-
-  }
 
 
   const deletetask = (val) => {
@@ -119,14 +132,14 @@ function App() {
 
             <div className='mt-7 flex items-center'>
               <p>Date: </p>
-              <input type="date" className='outline-none p-1 ms-2' value={getDate} onChange={(e) => setgetDate(e.target.value)} placeholder='Select Date' required />
+              <input type="date" className='outline-none p-1 ms-2' value={getDate} min={currentDate} onChange={(e) => setgetDate(e.target.value)} placeholder='Select Date' required />
             </div>
 
             <div className='mt-7 flex items-center'>
               <p className='me-2'>Duration:</p>
-              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={initialtime} onChange={(e) => setinitialtime(e.target.value)} required />
+              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={durationHr} onChange={(e) => setdurationHr(e.target.value)} required />
               <span className='mx-3'> - </span>
-              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={deadlinetime} onChange={(e) => setdeadlinetime(e.target.value)} required />
+              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={durationMin} onChange={(e) => setdurationMin(e.target.value)} required />
             </div>
 
             <div className='mt-16 flex justify-end'>
@@ -165,9 +178,9 @@ function App() {
 
             <div className='mt-7 flex items-center'>
               <p className='me-2'>Duration:</p>
-              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={initialtime} onChange={(e) => setinitialtime(e.target.value)} required />
+              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={durationHr} onChange={(e) => setdurationHr(e.target.value)} required />
               <span className='mx-3'> - </span>
-              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={deadlinetime} onChange={(e) => setdeadlinetime(e.target.value)} required />
+              <input type="text" className='border w-[80px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={durationMin} onChange={(e) => setdurationMin(e.target.value)} required />
             </div>
 
             <div className='mt-16 flex justify-end'>
@@ -194,7 +207,7 @@ function App() {
 
 
         <div className='mt-10 border-[#5957575f] border-t overflow-y-auto h-[550px] w-full'>
-          {task.map((task, index) => <AddTask newValue={task.taskName} getDate={task.taskDate} initialtime={task.durationFrom} deadlinetime={task.durationTo} key={index} test={index} priority={task.urgency} allTask={allTask} deletetask={deletetask} idValue={task.id} setshowEdit={editTaskValue} />)}
+          {task.map((task, index) => <AddTask newValue={task.taskName} getDate={task.taskDate} durationHr={task.durationHr} durationMin={task.durationMin} key={index} test={index} priority={task.urgency} allTask={allTask} deletetask={deletetask} idValue={task.id} setshowEdit={editTaskValue} />)}
         </div>
 
         <footer className='text-center pt-5'>
