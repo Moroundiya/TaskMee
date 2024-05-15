@@ -7,6 +7,8 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
     const [newcomplete, setnewcomplete] = useState();
     // const [pushTask, setPushtask] = useState([]);
 
+    const dateConvert = new Date(getDate).toDateString()
+
     useEffect(() => {
         setnewcomplete(complete)
         // setPushtask(allTask)
@@ -25,7 +27,7 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
                 <input type="checkbox" className='cursor-pointer w-[17px] h-[17px]' onChange={taskComplete} />
                 <div className='ml-4 sm:ml-6'>
                     <h1 className={newcomplete ? 'text-xl line-through' : 'text-xl'}>{newValue}</h1>
-                    <p className={newcomplete ? 'text-[12px] leading-tight line-through' : 'text-[12px] leading-tight'}>{getDate}</p>
+                    <p className={newcomplete ? 'text-[12px] leading-tight line-through' : 'text-[12px] leading-tight'}>{dateConvert}</p>
                     <p className={newcomplete ? 'text-[11px] leading-tight line-through' : 'text-[11px] leading-tight'}>Duration: &nbsp;{durationHr} - {durationMin}</p>
                 </div>
             </div>

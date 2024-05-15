@@ -47,10 +47,12 @@ function App() {
   const [priority, setPriority] = useState();
   const [durationHr, setdurationHr] = useState();
   const [getdurationHr, setgetdurationHr] = useState();
+  const [getdurationMin, setgetdurationMin] = useState();
   const [durationMin, setdurationMin] = useState();
   const [allTask, setAlltask] = useState([])
   const [grabName, setGrabName] = useState()
-  // const [clearName, setClearName] = useState()
+  const [grabDate, setGrabDate] = useState()
+  const [timeSplit, settimeSplit] = useState()
   const [selectedTaskName, setselectedTaskName] = useState()
   // let selectedTaskEach;
 
@@ -58,8 +60,13 @@ function App() {
   useEffect(() => {
     setNewValue(value)
     setAlltask(task)
-    setgetdurationHr(durationHr)
-    console.log(grabName)
+    // setgetdurationHr(durationHr)
+    console.log(getdurationHr)
+    console.log(getdurationMin)
+
+
+    // settimeSplit(editDate)
+    // console.log('timeSplit ' + timeSplit)
     // console.log(clearName)
 
     // setselectedTask(selectedTaskEach)
@@ -105,6 +112,9 @@ function App() {
     setgetDate('');
     setdurationHr('');
     setdurationMin('')
+
+    setgetdurationHr(durationHr)
+    setgetdurationMin(durationMin)
   }
 
 
@@ -115,9 +125,12 @@ function App() {
     console.log(idTaskValue)
     const selectedTaskUpdate = task.find((item) => item.id === idTaskValue);
     selectedTaskUpdate.taskName = grabName
+    selectedTaskUpdate.taskDate = grabDate
     setselectedTaskName(selectedTaskName)
+    // setselectedTaskName(selectedTaskName)
     // setGrabName('')
     // setselectedTaskName(selectedTaskEach.taskName)
+    // setGrabDate('')
   }
 
   const editTaskBtn = (val) => {
@@ -128,6 +141,14 @@ function App() {
 
     // setEditName(selectedTaskEach.taskName)
     setEditDate(selectedTaskEach.taskDate)
+    // const selectedTaskSplit = selectedTaskEach.taskDate.split('-')
+    // const selectedTaskSplitYear = selectedTaskSplit[0]
+    // const selectedTaskSplitMonth = selectedTaskSplit[1]
+    // const selectedTaskSplitDay = selectedTaskSplit[2]
+    // const selectedTaskSplitAll = selectedTaskSplitMonth + '-' + selectedTaskSplitDay + '-' + selectedTaskSplitYear
+
+    // settimeSplit(selectedTaskSplitAll)
+    // const 
     setEditStartTime(selectedTaskEach.taskHr)
     setEditEndTime(selectedTaskEach.taskMin)
     // console.log(selectedTask)
@@ -166,8 +187,9 @@ function App() {
 
   const grabEdittedName = (name) => {
     setGrabName(name)
-    // setClearName(name2)
-    // console.log(name2)
+  }
+  const grabEdittedDate = (name) => {
+    setGrabDate(name)
   }
 
 
@@ -219,7 +241,7 @@ function App() {
       {/* Edit Component  */}
 
 
-      <EditTask showEdit={showEdit} currentId={taskEditArray} grabEdittedName={grabEdittedName} editTaskModal={editTaskModal} currentDate={currentDate} selectedTaskName={selectedTaskName} editTaskBtn={editTaskBtn} primaryId={taskEditArray} editName={editName} editDate={editDate} editStartTime={editStartTime} editEndTime={editEndTime} />
+      <EditTask showEdit={showEdit} timeSplit={timeSplit} currentId={taskEditArray} grabEdittedDate={grabEdittedDate} grabEdittedName={grabEdittedName} editTaskModal={editTaskModal} getdurationHr={getdurationHr} getdurationMin={getdurationMin} currentDate={currentDate} selectedTaskName={selectedTaskName} editTaskBtn={editTaskBtn} primaryId={taskEditArray} editName={editName} editDate={editDate} editStartTime={editStartTime} editEndTime={editEndTime} />
       {/* <EditTask showEdit={showEdit} editTaskModal={editTaskModal} editTaskBtn={editTaskBtn} primaryKey={task.id} /> */}
 
       <div className='sm:w-[600px] mx-auto pt-8 px-3 xl:pt-12'>
