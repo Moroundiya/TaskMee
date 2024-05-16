@@ -36,8 +36,8 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
                 <p className={newcomplete ? 'text-white bg-green-500 px-2 py-1 rounded-md text-[12.8px] text-center' : 'text-white bg-yellow-500 px-2 py-1 rounded-md text-[12.8px] text-center'}>{newcomplete ? 'Completed' : 'Pending'}</p>
             </div>
             {/* {primaryKey} */}
-            <div className={newcomplete ? 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%] text-gray-600 pointer-events-none' : 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%]'}>
-                <Icon icon="bx:edit" className='cursor-pointer' onClick={()=>editTaskBtn(idValue)} />
+            <div className={newcomplete ? 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%]' : 'flex text-xl sm:text-2xl space-x-3 sm:space-x-4 pe-1 xl:pe-2 justify-end w-[24%] sm:w-[37%]'}>
+                <Icon icon="bx:edit" className={newcomplete ? 'cursor-pointer pointer-events-none text-gray-600' : 'cursor-pointer'} onClick={() => editTaskBtn(idValue)} />
                 <Icon icon="ion:trash" className='cursor-pointer' onClick={() => deletetask(idValue)} />
             </div>
         </div>

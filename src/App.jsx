@@ -52,6 +52,8 @@ function App() {
   const [allTask, setAlltask] = useState([])
   const [grabName, setGrabName] = useState()
   const [grabDate, setGrabDate] = useState()
+  const [grabHr, setGrabHr] = useState()
+  const [grabMin, setGrabMin] = useState()
   const [timeSplit, settimeSplit] = useState()
   const [selectedTaskName, setselectedTaskName] = useState()
   // let selectedTaskEach;
@@ -120,17 +122,63 @@ function App() {
 
   const editTaskModal = (e, idTaskValue) => {
     e.preventDefault();
-    // console.log("Submitted")
     setshowEdit('hidden')
-    console.log(idTaskValue)
     const selectedTaskUpdate = task.find((item) => item.id === idTaskValue);
-    selectedTaskUpdate.taskName = grabName
-    selectedTaskUpdate.taskDate = grabDate
+    // const currentTaskNameGrab = selectedTaskUpdate.taskName
+
+    if (grabName == '' || grabName == undefined) {
+      // selectedTaskUpdate.taskName = 'Empty'
+    } else {
+      selectedTaskUpdate.taskName = grabName
+    }
+
+
+    if (grabDate == 'Invalid Date' || grabDate == undefined) {
+      // selectedTaskUpdate.taskName = 'Empty'
+    } else {
+      selectedTaskUpdate.taskDate = grabDate
+    }
+
+    if (grabHr == 0 || grabHr == NaN) {
+      // selectedTaskUpdate.taskName = 'Empty'
+    } else {
+      selectedTaskUpdate.durationHr = grabHr + 'hr(s)'
+    }
+
+
+    if (isNaN(grabMin)) {
+      // selectedTaskUpdate.durationMin = 'Empty'
+    } else {
+      selectedTaskUpdate.durationMin = grabMin + 'min(s)'
+    }
+
     setselectedTaskName(selectedTaskName)
-    // setselectedTaskName(selectedTaskName)
-    // setGrabName('')
-    // setselectedTaskName(selectedTaskEach.taskName)
-    // setGrabDate('')
+
+    console.log('grabMin is ' + grabMin) 
+
+
+    // console.log()
+
+    // console.log(grabHr)
+
+    // selectedTaskUpdate.durationHr = grabHr + 'hr(s)'
+
+    // console.log('grabHr ' + typeof grabHr)
+    // console.log(grabDate)
+
+    // if (grabName == '' || grabName == undefined) {
+    //   // selectedTaskUpdate.taskName = 'Empty'
+    // } else {
+    //   selectedTaskUpdate.taskName = grabName
+    // }
+
+
+    // selectedTaskUpdate.taskName = grabName
+    // selectedTaskUpdate.taskDate = grabDate
+    // selectedTaskUpdate.durationMin = grabMin + 'min(s)'
+
+    // console.log('grabname is ' + grabName)
+
   }
 
   const editTaskBtn = (val) => {
@@ -138,8 +186,6 @@ function App() {
     const selectedTaskEach = task.find((item) => item.id === val);
     setselectedTaskName(selectedTaskEach.taskName)
 
-
-    // setEditName(selectedTaskEach.taskName)
     setEditDate(selectedTaskEach.taskDate)
     // const selectedTaskSplit = selectedTaskEach.taskDate.split('-')
     // const selectedTaskSplitYear = selectedTaskSplit[0]
@@ -192,6 +238,13 @@ function App() {
     setGrabDate(name)
   }
 
+  const grabEdittedHr = (name) => {
+    setGrabHr(name)
+  }
+  const grabEdittedMin = (name) => {
+    setGrabMin(name)
+  }
+
 
 
   return (
@@ -241,7 +294,7 @@ function App() {
       {/* Edit Component  */}
 
 
-      <EditTask showEdit={showEdit} timeSplit={timeSplit} currentId={taskEditArray} grabEdittedDate={grabEdittedDate} grabEdittedName={grabEdittedName} editTaskModal={editTaskModal} getdurationHr={getdurationHr} getdurationMin={getdurationMin} currentDate={currentDate} selectedTaskName={selectedTaskName} editTaskBtn={editTaskBtn} primaryId={taskEditArray} editName={editName} editDate={editDate} editStartTime={editStartTime} editEndTime={editEndTime} />
+      <EditTask showEdit={showEdit} timeSplit={timeSplit} currentId={taskEditArray} grabEdittedDate={grabEdittedDate} grabEdittedHr={grabEdittedHr} grabEdittedMin={grabEdittedMin} grabEdittedName={grabEdittedName} editTaskModal={editTaskModal} getdurationHr={getdurationHr} getdurationMin={getdurationMin} currentDate={currentDate} selectedTaskName={selectedTaskName} editTaskBtn={editTaskBtn} primaryId={taskEditArray} editName={editName} editDate={editDate} editStartTime={editStartTime} editEndTime={editEndTime} />
       {/* <EditTask showEdit={showEdit} editTaskModal={editTaskModal} editTaskBtn={editTaskBtn} primaryKey={task.id} /> */}
 
       <div className='sm:w-[600px] mx-auto pt-8 px-3 xl:pt-12'>
