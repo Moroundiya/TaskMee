@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react';
 
 
-function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurationHr, timeSplit, getDate, priority, currentId, grabEdittedHr, grabEdittedMin, grabEdittedDate, grabEdittedName, currentDate, taskHr, taskMin, primaryId, selectedTask, editName, selectedTaskName, editDate, editStartTime, editEndTime }) {
+function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurationHr, grabHrBoolean, timeSplit, getDate, priority, currentId, grabEdittedHr, grabEdittedMin, grabEdittedDate, grabEdittedName, currentDate, taskHr, taskMin, primaryId, selectedTask, editName, selectedTaskName, editDate, editStartTime, editEndTime }) {
     // console.log('here' + selectedTaskName)
     // const [selectedTaskName, setSelectedTaskName] = useState()
     // const [selectedTaskNamePro, setSelectedTaskNamePro] = useState()
@@ -19,26 +19,9 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
     // const [editdurationHr, seteditdurationHr] = useState()
     const [editdurationMin, seteditdurationMin] = useState('')
     const [editTaskDate, seteditTaskDate] = useState()
+    const [hrBoolean, setHrBoolean] = useState(false)
 
 
-
-
-    // console.log('yes ' + newSplitHr)
-    // seteditdurationHr1(durationNewHrValue[0])
-    // seteditdurationHr2(durationNewHrValue[1])
-
-    // console.log(editdurationHr1 + ' ' + editdurationHr2)
-
-    // const durationNewMinValue = editdurationMin.split(':');
-    // const newEditHr = durationNewHrValue[0] - durationNewMinValue[0]
-    // const newEditMin = durationNewHrValue[1] - durationNewMinValue[1]
-    // const newEditHrValue = Math.abs(newEditHr)
-    // const newEditMinValue = Math.abs(newEditMin)
-    // grabEdittedHr(newEditHrValue)
-    // grabEdittedMin(newEditMinValue)
-
-
-    // console.log('before effect ' + editdurationHr)
 
     const editdurationHrSplit = editdurationHr.split(':')
     const editdurationHrSplit1 = editdurationHrSplit[0]
@@ -57,25 +40,7 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
     const newEditMinValue = Math.abs(newEditMin)
 
 
-
-
-
-
-    // const [holdDate, setholdDate] = useState()
-    // const timeConvertSplit = timeSplit
-    // let newDateValue
-
-    // const [editNewDate, setNewEditDate] = useState()
-    // console.log(dateNewConvert)
-
-    // console.log(editTaskDate)
-    // const [timeConvert, settimeConvert] = useState()
-
-    // const timeConvertYear = timeConvertSplit[0]
-    // const timeConvertMonth = timeConvertSplit[1]
-    // const timeConvertDay = timeConvertSplit[2]
-    // const timeConvert = timeConvertYear + '-' + timeConvertMonth + '-' + timeConvertDay
-
+    // console.log('typeof newEditHrValue is ' + typeof newEditHrValue )
     function setInitialDate() {
         // seteditTaskDate(editDate)
         // console.log(editDate)
@@ -86,6 +51,8 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
         seteditTaskDate('')
         seteditdurationHr('')
         seteditdurationMin('')
+        setHrBoolean(false)
+
         // console.log(typeof editTaskDate)
 
     }
@@ -99,38 +66,7 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
 
         grabEdittedHr(newEditHrValue)
         grabEdittedMin(newEditMinValue)
-
-
-
-
-        // console.log('new hrs ' + newEditHrValue)
-        // console.log('new mins ' + newEditMinValue)
-
-
-
-
-        // setnewSplitHr2(editdurationHr)
-
-        // console.log('after effect ' + editdurationHr)
-
-        // console.log('yesss ' + editdurationHr)
-        // console.log(editdurationHr.split(':'))
-
-        // setnewSplitHr(editdurationHr.split(':'))
-
-        // console.log('gotten ' + newSplitHr)
-
-        // console.log('yesss ' + newSplitHr2)
-
-
-
-        // setnewSplitHr(editdurationHr1)
-
-        // console.log(newSplitHr)
-        // setnewSplitHr2(editdurationHr2)
-
-        // console.log(newSplitHr + ' -- ' + newSplitHr2)
-
+        grabHrBoolean(hrBoolean)
 
     }, [editTaskName, selectedTaskName, editDate, editTaskDate, editdurationHr, newSplitHr, newEditHrValue, newEditMinValue])
 
@@ -153,12 +89,6 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
                     <div className='mt-3 text-[14.8px]'>
                         {priority == 'high' ? <button className='py-1 px-4 border bg-red-700 text-white border-red-700 mr-4 rounded transition-all ease-in-out duration-200 pointer-events-none hover:bg-red-700 hover:text-white'>High</button> : priority == 'medium' ? <button className='py-1 px-4 border border-orange-400 mr-4 bg-orange-400 text-white rounded transition-all ease-in-out duration-200 pointer-events-none hover:bg-orange-400 hover:text-white'>Medium</button> : <button className='py-1 px-4 border border-gray-700 bg-gray-700 mr-4 rounded transition-all ease-in-out duration-200 pointer-events-none text-white hover:bg-gray-700 hover:text-white'>Low</button>}
                     </div>
-                    {/* <p>{primaryId}</p>
-                    <p>{selectedTaskName}</p>
-                    <p>{editDate}</p>
-                    <p>{editStartTime}</p>
-                    <p>{editEndTime}</p> */}
-                    {/* <p>{dateNewConvert}</p> */}
 
                     <div className='mt-7'>
                         <div className='flex items-center'>
@@ -170,7 +100,7 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
 
                     <div className='mt-7 flex items-center'>
                         <p className='me-2'>Update Time:</p>
-                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={editdurationHr} onChange={(e) => seteditdurationHr(e.target.value)} />
+                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={editdurationHr} onChange={(e) => { seteditdurationHr(e.target.value), setHrBoolean(true) }} />
                         <span className='mx-3'> - </span>
                         <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={editdurationMin} onChange={(e) => seteditdurationMin(e.target.value)} />
 
