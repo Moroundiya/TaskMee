@@ -40,11 +40,12 @@ function App() {
     if (localData) {
       return JSON.parse(localData)
     } else {
-      console.log('Error')
+      return []
+
     }
   }
 
-  
+
 
   const taskDate = newDate.toDateString();
   const [task, setTask] = useState(storeLocalData);
