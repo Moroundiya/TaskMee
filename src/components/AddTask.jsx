@@ -9,7 +9,7 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
         const localCompleteData = localStorage.getItem('Completed')
 
         if (localCompleteData) {
-            return localCompleteData
+            // return localCompleteData
         } else {
             console.log('Error')
             return localCompleteData
@@ -18,8 +18,8 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
     }
 
 
-    const [complete, setComplete] = useState();
-    const [newcomplete, setnewcomplete] = useState(storeCompleteLocalData);
+    const [complete, setComplete] = useState(storeCompleteLocalData);
+    const [newcomplete, setnewcomplete] = useState();
     // const [pushTask, setPushtask] = useState([]);
 
     const dateConvert = new Date(getDate).toDateString()
@@ -31,7 +31,7 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
 
     useEffect(() => {
         setnewcomplete(complete)
-        // localStorage.setItem('Completed', complete)
+        localStorage.setItem('Completed', complete)
 
         // setPushtask(allTask)
     }, [complete])
@@ -39,12 +39,9 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
     const taskComplete = event => {
         if (event.target.checked) {
             setComplete(true)
-            localStorage.setItem('Completed', true)
 
         } else {
             setComplete(false)
-            localStorage.setItem('Completed', false)
-
         }
     }
     return (
