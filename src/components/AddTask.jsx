@@ -3,22 +3,48 @@ import { Icon } from '@iconify/react';
 
 export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, test, allTask, deletetask, idValue, editTaskBtn, primaryKey }) => {
 
+
+
+    const storeCompleteLocalData = () => {
+        const localCompleteData = localStorage.getItem('Completed')
+
+        if (localCompleteData) {
+            return localCompleteData
+        } else {
+            console.log('Error')
+            return localCompleteData
+
+        }
+    }
+
+
     const [complete, setComplete] = useState();
-    const [newcomplete, setnewcomplete] = useState();
+    const [newcomplete, setnewcomplete] = useState(storeCompleteLocalData);
     // const [pushTask, setPushtask] = useState([]);
 
     const dateConvert = new Date(getDate).toDateString()
 
+
+    // useEffect(() => {
+    //   }, [complete])
+
+
     useEffect(() => {
         setnewcomplete(complete)
+        // localStorage.setItem('Completed', complete)
+
         // setPushtask(allTask)
     }, [complete])
 
     const taskComplete = event => {
         if (event.target.checked) {
             setComplete(true)
+            localStorage.setItem('Completed', true)
+
         } else {
             setComplete(false)
+            localStorage.setItem('Completed', false)
+
         }
     }
     return (

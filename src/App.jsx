@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { AddTask } from './components/AddTask';
 import { v4 as uuidv4 } from 'uuid';
 import EditTask from './components/EditTask';
+// import { reactLocalStorage } from 'reactjs-localstorage';
 // import useLocalStorage from 'react-use-localstorage';
 uuidv4();
 
@@ -31,8 +32,22 @@ function App() {
 
   const currentDate = dateYear + '-' + dateMonthDetect + '-' + dateDayDetect
 
+
+
+  const storeLocalData = () => {
+    const localData = localStorage.getItem('Tasks')
+
+    if (localData) {
+      return JSON.parse(localData)
+    } else {
+      console.log('Error')
+    }
+  }
+
+  
+
   const taskDate = newDate.toDateString();
-  const [task, setTask] = useState([]);
+  const [task, setTask] = useState(storeLocalData);
   const [taskEditArray, settaskEditArray] = useState();
   const [editName, setEditName] = useState();
   const [editDate, setEditDate] = useState();
@@ -59,15 +74,28 @@ function App() {
   const [selectedTaskName, setselectedTaskName] = useState()
   const [grabHrBooleanValue, setgrabHrBooleanValue] = useState()
 
-  // const [nameSample, setnameSample] = useLocalStorage('name',);
+  // const [nameSample, setnameSample] = useState();
   // let selectedTaskEach;
+
+
+
+
+  useEffect(() => {
+    localStorage.setItem('Tasks', JSON.stringify(task))
+  }, [task])
 
 
   useEffect(() => {
     setNewValue(value)
     setAlltask(task)
 
-  }, [value, priority, task, getDate, durationHr, durationMin, grabName])
+    // console.log(reactLocalStorage.get('AllTask', JSON.parse(allTask)))
+
+    // localStorage.setItem('Testing', JSON.stringify(nameSample))
+
+    // console.log(JSON.parse(localStorage.getItem('allTask')))
+
+  }, [value, priority, task, getDate, durationHr, durationMin, grabName, allTask])
   function addTaskModal(e) {
     e.preventDefault();
     const durationHrValue = durationHr.split(':');
@@ -219,7 +247,6 @@ function App() {
 
   return (
     <div className='w-full h-full bg-[#eee] relative'>
-
       <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showModal} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
         <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8'>
           <div className='flex justify-between items-center mb-5'>
