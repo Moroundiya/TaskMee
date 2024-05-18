@@ -82,8 +82,8 @@ function App() {
 
 
   useEffect(() => {
-    localStorage.setItem('Tasks', JSON.stringify(task))
-  }, [task])
+    localStorage.setItem('Tasks', JSON.stringify(allTask))
+  }, [task, allTask])
 
 
   useEffect(() => {
@@ -164,7 +164,8 @@ function App() {
     setselectedTaskName(selectedTaskName)
 
 
-    console.log(grabHrBooleanValue)
+
+    // console.log(grabHrBooleanValue)
 
 
 
@@ -184,6 +185,7 @@ function App() {
     // console.log('currentTaskHrGrab is ' + currentTaskHrGrab)
 
 
+    localStorage.setItem('Tasks', JSON.stringify(allTask))
 
 
 
@@ -200,8 +202,6 @@ function App() {
     setEditEndTime(selectedTaskEach.taskMin)
     // console.log(selectedTask)
     settaskEditArray(selectedTaskEach.id)
-
-
 
   }
 
