@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
-export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, test, allTask, deletetask, idValue, editTaskBtn, primaryKey }) => {
+export const AddTask = ({ newValue, getDate, durationHr, allTask, durationMin, priority, selectedTaskID, test, deletetask, idValue, editTaskBtn, primaryKey }) => {
 
 
 
@@ -12,7 +12,7 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
             // return localCompleteData
         } else {
             console.log('Error')
-            return localCompleteData
+            // return localCompleteData
 
         }
     }
@@ -32,22 +32,28 @@ export const AddTask = ({ newValue, getDate, durationHr, durationMin, priority, 
     useEffect(() => {
         setnewcomplete(complete)
         localStorage.setItem('Completed', complete)
-
+        // console.log(complete + ' is')
         // setPushtask(allTask)
     }, [complete])
 
-    const taskComplete = event => {
+    const taskComplete = (event, val) => {
         if (event.target.checked) {
-            setComplete(true)
+            const getTaskCompleteValue = allTask.filter((task) => task.id == val)
+            const changeTaskComplete = getTaskCompleteValue.isCompleted = true
+            setComplete(changeTaskComplete)
 
         } else {
-            setComplete(false)
+            const getTaskCompleteValue = allTask.filter((task) => task.id == val)
+            const changeTaskComplete = getTaskCompleteValue.isCompleted = false
+            setComplete(changeTaskComplete)
         }
+
+        // console.log(complete)
     }
     return (
         <div className='flex items-center py-2 border-[#5957575f] border-b h-[75px] xl:h-[70px] w-full'>
             <div className={newcomplete ? 'px-3 border-l-4 border-green-500 rounded-sm flex items-center h-full py-4 w-[58%]' : `px-3 border-l-4 ${priority} rounded-sm flex items-center h-full py-4 w-[58%]`}>
-                <input type="checkbox" className='cursor-pointer w-[17px] h-[17px]' onChange={taskComplete} />
+                <input type="checkbox" className='cursor-pointer w-[17px] h-[17px]' onChange={(e) => taskComplete(e, selectedTaskID)} />
                 <div className='ml-4 sm:ml-6'>
                     <h1 className={newcomplete ? 'text-xl line-through' : 'text-xl'}>{newValue}</h1>
                     <p className={newcomplete ? 'text-[12px] leading-tight line-through' : 'text-[12px] leading-tight'}>{dateConvert}</p>

@@ -119,7 +119,8 @@ function App() {
         durationHr: newHrValue + 'hr(s)',
         durationMin: newMinValue + 'min(s)',
         taskHr: durationHr,
-        taskMin: durationMin
+        taskMin: durationMin,
+        isCompleted: false
       },
     ]);
     setshowModal('hidden');
