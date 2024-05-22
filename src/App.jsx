@@ -355,17 +355,6 @@ function App() {
       <div className='sm:w-[600px] mx-auto pt-8 px-3 xl:pt-12'>
         <div className='flex justify-between items-center'>
           <h1 className='text-2xl font-paci dark:text-[#E2E8F0]'>TaskMee</h1>
-          <div className='flex flex-col items-center'>
-            <div>
-              <input type="checkbox" class="checkbox" id="checkbox" checked={themeValue} onChange={changeThemeMode} />
-              <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <span class="ball"></span>
-              </label>
-            </div>
-            <span className='mt-1 text-sm dark:text-[#E2E8F0]'>{themeValue ? 'Dark Mode' : 'Light Mode'}</span>
-          </div>
           <button className='bg-blue-900 px-2 py-[7px] sm:py-2 sm:px-4 cursor-pointer text-white rounded font-[acme] flex items-center' onClick={() => setshowModal('flex')}>
             <Icon icon="fa6-solid:plus" className='mr-2 sm:text-lg' />
             <span className='text-sm'>Add Task</span>
@@ -377,6 +366,15 @@ function App() {
           {task.map((taskElement, index) => <AddTask taskCompleteValue={taskElement.isCompleted} newValue={taskElement.taskName} taskList={task} taskIndex={index} grabDynamicComplete={grabDynamicComplete} editTaskBtn={editTaskBtn} allTaskList={allTask} getDate={taskElement.taskDate} selectedTaskID={taskElement.id} durationHr={taskElement.durationHr} durationMin={taskElement.durationMin} key={index} test={index} priority={taskElement.urgency} allTask={allTask} deletetask={deletetask} idValue={taskElement.id} setshowEdit={editTaskValue} />)}
         </div>
 
+
+        <div className='flex flex-col items-center w-full'>
+          <input type="checkbox" className="checkbox" id="checkbox" checked={themeValue} onChange={changeThemeMode} />
+          <label for="checkbox" className="checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+          </label>
+        </div>
         <footer className='text-center pt-5 dark:text-[#E2E8F0]'>
           Designed By: Moroundiya 😎
         </footer>
