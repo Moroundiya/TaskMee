@@ -304,7 +304,7 @@ function App() {
 
   return (
     <div className='w-full min-h-screen bg-[#eee] dark:bg-[#0f172a] relative'>
-      <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showModal} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
+      <div className={`absolute top-0 left-0 w-full z-30 h-full bg-[rgba(0,0,0,.4)] ${showModal} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
         <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8 dark:bg-slate-800 dark:text-[#E2E8F0]'>
           <div className='flex justify-between items-center mb-5'>
             <p className='text-lg sm:text-xl'>Add Task</p>

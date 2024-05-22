@@ -75,7 +75,7 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
 
 
     return (
-        <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showEdit} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
+        <div className={`absolute z-30 top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showEdit} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
             <div className='bg-white dark:bg-[#1e293b] dark:text-[#E2E8F0] h-auto w-full sm:w-[600px] rounded-lg px-4 py-8'>
                 <div className='flex justify-between items-center mb-5'>
                     <p className='text-lg sm:text-xl'>Edit Task</p>
