@@ -24,3 +24,57 @@ div#root {
   --tw-bg-opacity: 1;
   border-color: rgb(234 179 2 / var(--tw-bg-opacity));
 }
+
+
+
+
+
+
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: #111;
+  width: 42px;
+  height: 18px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-moon {color: #f1c40f;
+font-size:10px;
+/*   width:20px */
+  position: relative;
+  z-index: 30;
+    left:-1px
+}
+
+.fa-sun {color: #f39c12;
+font-size:10px;
+/*   width:20px */
+  position: relative;
+  right:-1px;
+  z-index: 30}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
