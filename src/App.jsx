@@ -303,7 +303,7 @@ function App() {
   // }
 
   return (
-    <div className='w-full h-full bg-[#eee] dark:bg-[#0f172a] relative'>
+    <div className='w-full min-h-screen bg-[#eee] dark:bg-[#0f172a] relative'>
       <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showModal} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
         <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8 dark:bg-slate-800 dark:text-[#E2E8F0]'>
           <div className='flex justify-between items-center mb-5'>
@@ -362,12 +362,12 @@ function App() {
         </div>
 
 
-        <div className='mt-10 border-[#5957575f] border-t overflow-y-auto h-[550px] w-full'>
+        <div className='mt-10 border-[#5957575f] border-t overflow-y-auto h-[450px] xl:h-[550px] w-full'>
           {task.map((taskElement, index) => <AddTask taskCompleteValue={taskElement.isCompleted} newValue={taskElement.taskName} taskList={task} taskIndex={index} grabDynamicComplete={grabDynamicComplete} editTaskBtn={editTaskBtn} allTaskList={allTask} getDate={taskElement.taskDate} selectedTaskID={taskElement.id} durationHr={taskElement.durationHr} durationMin={taskElement.durationMin} key={index} test={index} priority={taskElement.urgency} allTask={allTask} deletetask={deletetask} idValue={taskElement.id} setshowEdit={editTaskValue} />)}
         </div>
 
 
-        <div className='flex flex-col items-center w-full'>
+        <div className='flex flex-col items-center w-full mt-5'>
           <input type="checkbox" className="checkbox" id="checkbox" checked={themeValue} onChange={changeThemeMode} />
           <label for="checkbox" className="checkbox-label">
             <i class="fas fa-moon"></i>
@@ -375,7 +375,7 @@ function App() {
             <span class="ball"></span>
           </label>
         </div>
-        <footer className='text-center pt-5 dark:text-[#E2E8F0]'>
+        <footer className='text-center pt-5 pb-4 dark:text-[#E2E8F0]'>
           Designed By: Moroundiya 😎
         </footer>
       </div>

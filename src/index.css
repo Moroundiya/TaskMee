@@ -10,6 +10,7 @@ div#root {
   height: 100%;
   font-family: 'Acme', 'sans-serif';
   font-weight: 100;
+  box-sizing: border-box;
 }
 
 .high {
