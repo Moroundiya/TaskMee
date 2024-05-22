@@ -46,7 +46,25 @@ function App() {
   }
 
 
+  // const storeLocalDataUpdate = () => {
+  //   const localDataUpdate = localStorage.getItem('Updated')
 
+  //   if (localDataUpdate) {
+  //     return localDataUpdate
+  //   } else {
+  //     return []
+  //   }
+  // }
+
+  const getThemeMode = () => {
+    const getThemevalue = localStorage.getItem('theme')
+
+    if (getThemevalue) {
+      return getThemevalue
+    }
+  }
+
+  const [theme, setTheme] = useState(getThemeMode);
   const taskDate = newDate.toDateString();
   const [task, setTask] = useState(storeLocalData);
   const [taskEditArray, settaskEditArray] = useState();
@@ -74,6 +92,10 @@ function App() {
   const [timeSplit, settimeSplit] = useState()
   const [selectedTaskName, setselectedTaskName] = useState()
   const [grabHrBooleanValue, setgrabHrBooleanValue] = useState()
+  const [newChangeCompleted, setnewChangeCompleted] = useState()
+  const [themeValue, setThemeValue] = useState()
+  // const [newcompleteArray, setnewcompleteArray] = useState(storeLocalDataUpdate)
+  // const [newcompleteArrayPro, setnewcompleteArrayPro] = useState()
 
   // const [nameSample, setnameSample] = useState();
   // let selectedTaskEach;
@@ -82,13 +104,39 @@ function App() {
 
 
   useEffect(() => {
-    localStorage.setItem('Tasks', JSON.stringify(allTask))
-  }, [task, allTask])
+    localStorage.setItem('Tasks', JSON.stringify(task))
 
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+      setThemeValue(true)
+    } else {
+      document.documentElement.classList.remove('dark')
+      setThemeValue(false)
+
+    }
+
+
+    console.log('theme is ' + theme)
+
+    localStorage.setItem('theme', theme)
+    // localStorage.setItem('Updated', JSON.stringify(newcompleteArray))
+  }, [task, theme])
+
+
+  const changeThemeMode = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   useEffect(() => {
     setNewValue(value)
     setAlltask(task)
+    // setTask(newcompleteArray)
+    // console.log(newcompleteArray)
+    // console.log("new complete " + newcompleteArray)
+    // setnewcompleteArrayPro(newcompleteArray)
+    // console.log("newcompleteArray " + JSON.stringify(newcompleteArray))
+    // console.log("newcompleteArrayPro " + newcompleteArrayPro)
+    // console.log(newChangeCompleted)
 
     // console.log(reactLocalStorage.get('AllTask', JSON.parse(allTask)))
 
@@ -96,7 +144,7 @@ function App() {
 
     // console.log(JSON.parse(localStorage.getItem('allTask')))
 
-  }, [value, priority, task, getDate, durationHr, durationMin, grabName, allTask])
+  }, [value, priority, task, getDate, durationHr, durationMin, grabName, allTask, newChangeCompleted])
   function addTaskModal(e) {
     e.preventDefault();
     const durationHrValue = durationHr.split(':');
@@ -120,7 +168,8 @@ function App() {
         durationMin: newMinValue + 'min(s)',
         taskHr: durationHr,
         taskMin: durationMin,
-        isCompleted: false
+        // isCompleted: false
+        isCompleted: newChangeCompleted
       },
     ]);
     setshowModal('hidden');
@@ -245,37 +294,43 @@ function App() {
     setgrabHrBooleanValue(name)
   }
 
+  const grabDynamicComplete = (name) => {
+    setnewChangeCompleted(name)
+  }
 
+  // const grabnewcompleteArray = (name) => {
+  //   setnewcompleteArray(name)
+  // }
 
   return (
-    <div className='w-full h-full bg-[#eee] relative'>
+    <div className='w-full h-full bg-[#eee] dark:bg-[#0f172a] relative'>
       <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showModal} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
-        <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8'>
+        <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8 dark:bg-slate-800 dark:text-[#E2E8F0]'>
           <div className='flex justify-between items-center mb-5'>
             <p className='text-lg sm:text-xl'>Add Task</p>
             <Icon icon="ci:close-sm" className='text-3xl sm:text-4xl cursor-pointer -mr-2' onClick={() => setshowModal('hidden')} />
           </div>
 
           <form action="" onSubmit={addTaskModal}>
-            <input type="text" name="" id="" className='w-full h-[45px] border-[#333333a9] border mt-5 outline-none px-2 rounded'
+            <input type="text" name="" id="" className='w-full h-[45px] border-[#333333a9] border mt-5 outline-none px-2 rounded dark:text-black'
               placeholder='Task Name' value={value} onInput={(e) => { setValue(e.target.value); }} maxLength={17} required />
-            <p className='mt-5 text-[#242121] text-md'>Priority</p>
+            <p className='mt-5 text-[#242121] text-md dark:text-[#E2E8F0]'>Priority</p>
             <div className='mt-3 text-[14.8px]'>
               <button className={high ? 'py-1 px-4 border bg-red-700 text-white border-red-700 mr-4 rounded transition-all ease-in-out duration-200 hover:bg-red-700 hover:text-whites' : 'py-1 px-4 border border-red-700 mr-4 rounded transition-all ease-in-out duration-200 text-red-700 hover:bg-red-700 hover:text-white'} onClick={() => setPriority('high')}>High</button>
               <button className={medium ? 'py-1 px-4 border border-orange-400 mr-4 bg-orange-400 text-white rounded transition-all ease-in-out duration-200 hover:bg-orange-400 hover:text-white' : 'py-1 px-4 border border-orange-400 mr-4 rounded transition-all ease-in-out duration-200 text-orange-400 hover:bg-orange-400 hover:text-white'} onClick={() => setPriority('medium')}>Medium</button>
-              <button className={low ? 'py-1 px-4 border border-gray-700 bg-gray-700 mr-4 rounded transition-all ease-in-out duration-200 text-white hover:bg-gray-700 hover:text-white' : 'py-1 px-4 border border-gray-700 mr-4 rounded transition-all ease-in-out duration-200 text-gray-700 hover:bg-gray-700 hover:text-white'} onClick={() => setPriority('low')}>Low</button>
+              <button className={low ? 'py-1 px-4 border border-gray-700 bg-gray-700 mr-4 rounded transition-all ease-in-out duration-200 text-white hover:bg-gray-700 hover:text-white dark:text-gray-400 dark:border-gray-400' : 'py-1 px-4 border border-gray-700 mr-4 rounded transition-all ease-in-out duration-200 text-gray-700 hover:bg-gray-700 hover:text-white dark:text-gray-400 dark:border-gray-400'} onClick={() => setPriority('low')}>Low</button>
             </div>
 
             <div className='mt-7 flex items-center'>
               <p>Date: </p>
-              <input type="date" className='outline-none p-1 ms-2' value={getDate} min={currentDate} onChange={(e) => setgetDate(e.target.value)} placeholder='Select Date' required />
+              <input type="date" className='outline-none p-1 ms-2 dark:text-black' value={getDate} min={currentDate} onChange={(e) => setgetDate(e.target.value)} placeholder='Select Date' required />
             </div>
 
             <div className='mt-7 flex items-center'>
               <p className='me-2'>Duration:</p>
-              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={durationHr} onChange={(e) => setdurationHr(e.target.value)} required />
+              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px] dark:text-black' placeholder='12:00am' value={durationHr} onChange={(e) => setdurationHr(e.target.value)} required />
               <span className='mx-3'> - </span>
-              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={durationMin} onChange={(e) => setdurationMin(e.target.value)} required />
+              <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px] dark:text-black' placeholder='2:00am' value={durationMin} onChange={(e) => setdurationMin(e.target.value)} required />
             </div>
 
             <div className='mt-16 flex justify-end'>
@@ -298,8 +353,9 @@ function App() {
       {/* <EditTask showEdit={showEdit} editTaskModal={editTaskModal} editTaskBtn={editTaskBtn} primaryKey={task.id} /> */}
 
       <div className='sm:w-[600px] mx-auto pt-8 px-3 xl:pt-12'>
+        <input type="checkbox" checked={themeValue} onChange={changeThemeMode} />
         <div className='flex justify-between items-center'>
-          <h1 className='text-2xl font-paci'>TaskMee</h1>
+          <h1 className='text-2xl font-paci dark:text-[#E2E8F0]'>TaskMee</h1>
           <button className='bg-blue-900 px-2 py-[7px] sm:py-2 sm:px-4 cursor-pointer text-white rounded font-[acme] flex items-center' onClick={() => setshowModal('flex')}>
             <Icon icon="fa6-solid:plus" className='mr-2 sm:text-lg' />
             <span className='text-sm'>Add Task</span>
@@ -308,10 +364,10 @@ function App() {
 
 
         <div className='mt-10 border-[#5957575f] border-t overflow-y-auto h-[550px] w-full'>
-          {task.map((task, index) => <AddTask newValue={task.taskName} editTaskBtn={editTaskBtn} getDate={task.taskDate} selectedTaskID={task.id} durationHr={task.durationHr} durationMin={task.durationMin} key={index} test={index} priority={task.urgency} allTask={allTask} deletetask={deletetask} idValue={task.id} setshowEdit={editTaskValue} />)}
+          {task.map((taskElement, index) => <AddTask taskCompleteValue={taskElement.isCompleted} newValue={taskElement.taskName} taskList={task} taskIndex={index} grabDynamicComplete={grabDynamicComplete} editTaskBtn={editTaskBtn} allTaskList={allTask} getDate={taskElement.taskDate} selectedTaskID={taskElement.id} durationHr={taskElement.durationHr} durationMin={taskElement.durationMin} key={index} test={index} priority={taskElement.urgency} allTask={allTask} deletetask={deletetask} idValue={taskElement.id} setshowEdit={editTaskValue} />)}
         </div>
 
-        <footer className='text-center pt-5'>
+        <footer className='text-center pt-5 dark:text-[#E2E8F0]'>
           Designed By: Moroundiya 😎
         </footer>
       </div>

@@ -76,16 +76,16 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
 
     return (
         <div className={`absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)] ${showEdit} justify-center items-center px-4 sm:px-0 transition-all duration-300 ease-in-out`}>
-            <div className='bg-white h-auto w-full sm:w-[600px] rounded-lg px-4 py-8'>
+            <div className='bg-white dark:bg-[#1e293b] dark:text-[#E2E8F0] h-auto w-full sm:w-[600px] rounded-lg px-4 py-8'>
                 <div className='flex justify-between items-center mb-5'>
                     <p className='text-lg sm:text-xl'>Edit Task</p>
                     <Icon icon="ci:close-sm" className='text-3xl sm:text-4xl cursor-pointer -mr-2' onClick={editTaskModal} />
                 </div>
 
                 <form action="" onSubmit={(e) => { editTaskModal(e, currentId); clearEdittedName() }}>
-                    <input type="text" name="" id="" className='w-full h-[45px] border-[#333333a9] border mt-5 outline-none px-2 rounded'
+                    <input type="text" name="" id="" className='w-full h-[45px] border-[#333333a9] border mt-5 outline-none px-2 rounded dark:text-black'
                         placeholder={selectedTaskName} value={editTaskName} onInput={(e) => { seteditTaskName(e.target.value) }} maxLength={17} />
-                    <p className='mt-5 text-[#242121] text-md'>Priority</p>
+                    <p className='mt-5 text-[#242121] text-md dark:text-[#E2E8F0]'>Priority</p>
                     <div className='mt-3 text-[14.8px]'>
                         {priority == 'high' ? <button className='py-1 px-4 border bg-red-700 text-white border-red-700 mr-4 rounded transition-all ease-in-out duration-200 pointer-events-none hover:bg-red-700 hover:text-white'>High</button> : priority == 'medium' ? <button className='py-1 px-4 border border-orange-400 mr-4 bg-orange-400 text-white rounded transition-all ease-in-out duration-200 pointer-events-none hover:bg-orange-400 hover:text-white'>Medium</button> : <button className='py-1 px-4 border border-gray-700 bg-gray-700 mr-4 rounded transition-all ease-in-out duration-200 pointer-events-none text-white hover:bg-gray-700 hover:text-white'>Low</button>}
                     </div>
@@ -93,16 +93,16 @@ function EditTask({ showEdit, newValue, editTaskModal, getdurationMin, getdurati
                     <div className='mt-7'>
                         <div className='flex items-center'>
                             <p>Update Date: </p>
-                            <input type="date" className='outline-none p-1 ms-2' min={currentDate} value={editTaskDate} onChange={(e) => seteditTaskDate(e.target.value)} placeholder='Select Date' />
+                            <input type="date" className='outline-none p-1 ms-2 dark:text-black' min={currentDate} value={editTaskDate} onChange={(e) => seteditTaskDate(e.target.value)} placeholder='Select Date' />
                         </div>
                         {/* <p className='select-none text-gray-400 text-sm'>Current Date: <span className=''>{dateNewConvert}</span></p> */}
                     </div>
 
                     <div className='mt-7 flex items-center'>
                         <p className='me-2'>Update Time:</p>
-                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='12:00am' value={editdurationHr} onChange={(e) => { seteditdurationHr(e.target.value), setHrBoolean(true) }} />
+                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px] dark:text-black' placeholder='12:00am' value={editdurationHr} onChange={(e) => { seteditdurationHr(e.target.value), setHrBoolean(true) }} />
                         <span className='mx-3'> - </span>
-                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px]' placeholder='2:00am' value={editdurationMin} onChange={(e) => seteditdurationMin(e.target.value)} />
+                        <input type="time" className='border w-[130px] rounded border-[#333] outline-none py-1 px-2 text-[15px] dark:text-black' placeholder='2:00am' value={editdurationMin} onChange={(e) => seteditdurationMin(e.target.value)} />
 
                         {/* <p><span>{getdurationHr} - {getdurationMin}</span></p> */}
                     </div>
